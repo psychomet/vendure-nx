@@ -1,11 +1,6 @@
-import { config, uiExtensionsConfig } from '@vendure-nx/util-config';
-import { AdminUiPlugin } from '@vendure/admin-ui-plugin';
-import {
-  bootstrap,
-  JobQueueService,
-  mergeConfig,
-  runMigrations,
-} from '@vendure/core';
+import {config, uiExtensionsConfig} from '@vendure-nx/util-config';
+import {AdminUiPlugin} from '@vendure/admin-ui-plugin';
+import {bootstrap, JobQueueService, LanguageCode, mergeConfig, runMigrations,} from '@vendure/core';
 import * as path from 'path';
 
 const ADMIN_UI_DEV_MODE = !!process.env.ADMIN_UI_DEV_MODE;
@@ -23,17 +18,30 @@ const mergedConfig = mergeConfig(config, {
         apiHost: process.env.API_PUBLIC_URL,
         apiPort: +(process.env.API_PUBLIC_PORT as string),
         tokenMethod: 'bearer',
+        defaultLanguage: LanguageCode.fa,
+        availableLanguages: [LanguageCode.en, LanguageCode.fa],
       },
+
       app: ADMIN_UI_DEV_MODE
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
         ? require('@vendure/ui-devkit/compiler').compileUiExtensions({
-            outputPath: path.join(__dirname, '../__temp-admin-ui'),
-            extensions: uiExtensionsConfig,
-            devMode: true,
-            command: 'npm',
-          })
-        : {
-            path: path.join(process.cwd(), 'dist/apps/admin-ui-app/dist'),
+          outputPath: path.join(__dirname, '../__temp-admin-ui'),
+          extensions: [{
+            translations: {
+              fa: path.join(process.cwd(), 'static/translations/fa.json'),
+            },
+          }, {
+            sassVariableOverrides: path.join(process.cwd(), 'static/my-variables.scss')
           },
+            {
+              globalStyles: path.join(process.cwd(), 'static/my-theme.scss')
+            }, ...uiExtensionsConfig],
+          devMode: true,
+          command: 'npm',
+        })
+        : {
+          path: path.join(process.cwd(), 'dist/apps/admin-ui-app/dist'),
+        },
     }),
   ],
 });

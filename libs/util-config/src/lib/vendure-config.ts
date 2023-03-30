@@ -13,6 +13,7 @@ import {
   configureS3AssetStorage,
 } from '@vendure/asset-server-plugin';
 import { BullMQJobQueuePlugin } from '@vendure/job-queue-plugin/package/bullmq';
+import {ElasticsearchPlugin} from "@vendure/elasticsearch-plugin";
 
 const PORT = +(process.env.API_INTERNAL_PORT as string);
 const assetUrlPrefix =
@@ -82,12 +83,16 @@ export const config: VendureConfig = {
     BullMQJobQueuePlugin.init({
       connection: {
         host: process.env.REDIS_HOST ?? '127.0.0.1',
-        port: +process.env.NF_REDIS_PORT ?? 6379,
+        port: +process.env.REDIS_PORT ?? 6379,
         password: process.env.REDIS_PASSWORD ?? null,
       },
       queueOptions: {
         defaultJobOptions: {},
       },
+    }),
+    ElasticsearchPlugin.init({
+      host: process.env.ELASTIC_HOST,
+      port: 9200,
     }),
   ],
 };
