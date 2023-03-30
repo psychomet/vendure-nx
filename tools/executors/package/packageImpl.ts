@@ -1,6 +1,4 @@
-import { ExecutorContext, readJsonFile, writeJsonFile } from '@nrwl/devkit';
-import { readCachedProjectGraph } from '@nrwl/workspace/src/core/project-graph';
-import { createPackageJson } from '@nrwl/workspace/src/utilities/create-package-json';
+import {createPackageJson, ExecutorContext, readCachedProjectGraph, readJsonFile, writeJsonFile} from '@nrwl/devkit';
 import * as fs from 'fs';
 import * as path from 'path';
 
