@@ -21,9 +21,7 @@ const mergedConfig = mergeConfig(config, {
       port: +process.env.API_INTERNAL_PORT + 3,
       route: 'admin',
       adminUiConfig: {
-        apiHost: ADMIN_UI_DEV_MODE
-          ? process.env.API_PUBLIC_URL
-          : process.env.API_PUBLIC_URL + '/admin-api',
+        apiHost: process.env.API_PUBLIC_URL,
         apiPort: ADMIN_UI_DEV_MODE && +(process.env.API_PUBLIC_PORT as string),
         tokenMethod: 'bearer',
         defaultLanguage: LanguageCode.fa,
