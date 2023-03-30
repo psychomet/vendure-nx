@@ -23,7 +23,7 @@ const rootDir = process.cwd();
 
 export const config: VendureConfig = {
   apiOptions: {
-    hostname: 'https://metden.online/',
+    hostname: 'https://metden.online',
     port: PORT,
     adminApiPath: 'admin-api',
     shopApiPath: 'shop-api',
