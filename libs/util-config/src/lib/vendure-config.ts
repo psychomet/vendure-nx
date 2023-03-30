@@ -13,7 +13,7 @@ import {
   configureS3AssetStorage,
 } from '@vendure/asset-server-plugin';
 import { BullMQJobQueuePlugin } from '@vendure/job-queue-plugin/package/bullmq';
-import {ElasticsearchPlugin} from "@vendure/elasticsearch-plugin";
+import { ElasticsearchPlugin } from '@vendure/elasticsearch-plugin';
 
 const PORT = +(process.env.API_INTERNAL_PORT as string);
 const assetUrlPrefix =
@@ -23,6 +23,7 @@ const rootDir = process.cwd();
 
 export const config: VendureConfig = {
   apiOptions: {
+    hostname: 'https://metden.online/',
     port: PORT,
     adminApiPath: 'admin-api',
     shopApiPath: 'shop-api',
