@@ -101,7 +101,7 @@ export const config: VendureConfig = {
 function getDbConnectionOptions() {
   return {
     type: 'postgres',
-    synchronize: false,
+    synchronize: true,
     host: process.env.DB_HOST,
     port: +process.env.DB_PORT,
     username: process.env.DB_USER,
